@@ -1,0 +1,9 @@
+#!/bin/bash
+pip3 install paramiko
+pip3 install scp
+pip3 install monotonic
+pip3 install pymongo
+pip3 install pandas
+
+
+

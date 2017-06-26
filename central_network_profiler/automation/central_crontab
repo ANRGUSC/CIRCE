@@ -1,0 +1,2 @@
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/apac/central_network_profiler
+*/10 * * * * cd && cd central_network_profiler && python central_update_mongo.py > /tmp/log_update.txt
