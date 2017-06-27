@@ -1,0 +1,19 @@
+#!/bin/bash
+
+root_folder=$PWD
+cd ..
+my_ip="$(ifconfig | grep -A 1 'eth0 ' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
+file_folder=generated_test
+file_name='_test_'
+mkdir -p $file_folder
+
+declare -a file_size=(1 10 100 1000 10000);
+
+for i in "${file_size[@]}"
+do
+    random_file=$my_ip$file_name$i"K"
+    file_path=$file_folder/$random_file
+
+    echo 'Create file'
+    dd if=/dev/urandom of=$file_path bs=1K count=$i #KBytes
+done

@@ -1,0 +1,32 @@
+#!/bin/bash
+
+root_folder="$(dirname "$PWD")"
+my_ip="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
+#echo $my_ip
+user_name=$(whoami)
+my_account="$user_name@$my_ip"
+#echo $my_account
+
+
+
+file_folder=$root_folder/generated_test
+file_name='_test_'
+
+OTHER_SERVER=$1
+remote_server=$OTHER_SERVER
+remote_folder=":~/online_profiler/received_test"
+remote_path=$remote_server$remote_folder
+
+RANDOM_SIZE=$2
+random_file=$my_ip$file_name$RANDOM_SIZE"K"
+
+file_path=$file_folder/$random_file
+#echo "Transmit from $file_path to $remote_path"
+result=`(time sshpass -p apac20!7 scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q -r $file_path $remote_path) 2>&1 | grep real`
+echo $result
+
+
+
+
+
+

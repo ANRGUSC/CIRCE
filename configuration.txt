@@ -1,0 +1,9 @@
+4
+task1 task2 task3 
+task2 task4 
+task3 task4 
+task4 scheduler
+task1 node1
+task2 node2
+task3 node1
+task4 node2

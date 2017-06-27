@@ -1,0 +1,3 @@
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/apac/online_profiler/network_script
+* * * * * cd && cd online_profiler/network_script/ && python droplet_measurement.py > /tmp/log_measurement.txt
+*/10 * * * * cd && cd online_profiler/network_script/ && python droplet_regression.py > /tmp/log_regression.txt
