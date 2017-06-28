@@ -44,5 +44,4 @@ if __name__ == '__main__':
     predicted = d.do_query_quaratic(source,destination,file_size)
     msg = "Expected latency is %f [ms]" %predicted
     print(msg)
-    #d.do_update_iperf_manual() not yet needed
-
+    

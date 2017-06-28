@@ -6,6 +6,7 @@ my_ip="$(ifconfig | grep -A 1 'eth0 ' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -
 file_folder=generated_test
 file_name='_test_'
 mkdir -p $file_folder
+mkdir -p received_test
 
 declare -a file_size=(1 10 100 1000 10000);
 
@@ -15,5 +16,5 @@ do
     file_path=$file_folder/$random_file
 
     echo 'Create file'
-    dd if=/dev/urandom of=$file_path bs=1K count=$i #KBytes
+    dd if=/dev/urandom of=$file_path bs=1K count=$i status=none #KBytes
 done
