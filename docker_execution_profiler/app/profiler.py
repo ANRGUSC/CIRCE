@@ -62,25 +62,25 @@ for task in task_order:
     module = task_module.get(task)
 
     k = timeit.Timer("module.task(inputfile, pathin, pathout)", globals = globals())
-    mytime = min(k.repeat(3,10))/10
+    mytime = min(k.repeat(3,1000))/1000
     output_data = file_size(module.task(inputfile, pathin, pathout))
     myfile.write('{0:<5s} {1:<15.10f} {2:s} \n'.format(task, mytime, str(output_data)))
 
 myfile.close()
 
 #send output file back to the scheduler machine
-# IP = sys.argv[2]
-# user = sys.argv[3]
-# pw = sys.argv[4]
+IP = sys.argv[2]
+user = sys.argv[3]
+pw = sys.argv[4]
 
-# ssh = paramiko.SSHClient()
-# ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-# ssh.connect(IP, username=user, password=pw)
-# sftp=ssh.open_sftp()
-# sftp.put('profiler_'+nodename+'.txt', 'profiler_'+nodename+'.txt')
+ssh = paramiko.SSHClient()
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+ssh.connect(IP, username=user, password=pw)
+sftp=ssh.open_sftp()
+sftp.put('profiler_'+nodename+'.txt', 'profiler_'+nodename+'.txt')
 
-# sftp.close()
-# ssh.close()
+sftp.close()
+ssh.close()
 
 
 
