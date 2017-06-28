@@ -20,6 +20,8 @@ ADD task3.py /task3.py
 
 ADD task4.py /task4.py
 
+ADD task5.py /task5.py
+
 ADD input.txt /input.txt
 
 ADD profiler.py /profiler.py
