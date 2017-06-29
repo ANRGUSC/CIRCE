@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python3 profiler.py $HOSTNAME 107.170.77.194 apac apac20!7
+python3 profiler.py $HOSTNAME IP username pw
