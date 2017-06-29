@@ -1,3 +1,9 @@
+"""
+ * Copyright (c) 2016, Autonomous Networks Research Group. All rights reserved.
+ *     contributor: Aleksandra Knezevic
+ *     Read license file in main directory for more details  
+"""
+
 import paramiko
 import os
 from multiprocessing import Process
