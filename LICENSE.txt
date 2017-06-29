@@ -1,4 +1,4 @@
-Copyright (c) 2016, Autonomous Networks Research Group. All rights reserved.
+Copyright (c) 2017, Autonomous Networks Research Group. All rights reserved.
 
 Developed by:
 Autonomous Networks Research Group (ANRG)
@@ -6,7 +6,9 @@ University of Southern California
 http://anrg.usc.edu/
 
 Contributors:
-name, month/day/year
+Aleksandra Knezevic, June 2017
+Quynh Nguyen, June 2017
+Bhaskar Krishnamachari, June 2017
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of 
 this software and associated documentation files (the "Software"), to deal with 
