@@ -34,13 +34,13 @@ the scheduler node. The other lines list the child tasks after the arrow.
 # User Guide
 The system consists of several tools and requires the following steps:
   - PROFILING:
-    - Execution profiler: produces profiler nodeX.txt file for each node,
+    - Execution profiler: produces profiler_nodeX.txt file for each node,
     which gives the execution time of each task on that node and the
     amount of data it passes to its child tasks. These results are required
     in the next step for HEFT algorithm.
         - INPUT: dag.txt, nodes.txt, DAG task files (task1.py, task2.py,. . . ),
         DAG input file (input.txt)
-        - OUTPUT: profiler nodeNUM.txt
+        - OUTPUT: profiler_nodeNUM.txt
         - USER GUIDE: There are two ways to run the execution profiler:
             1. copy the app/ folder to the each of the nodes using scp and
             inside app/ folder perform the following commands:
@@ -122,16 +122,16 @@ The system consists of several tools and requires the following steps:
         -  HEFT input file construction: HEFT implementation takes a
         file of .tgff format, which describes the DAG and its various costs, as
         input. The first step is to construct this file.
-            - INPUT: dag.txt, profiler nodeNUM.txt
+            - INPUT: dag.txt, profiler_nodeNUM.txt
             - OUTPUT: input.tgff
-            - USER GUIDE: from apac scheduler/heft/ folder execute:
+            - USER GUIDE: from apac_scheduler/heft/ folder execute:
             python write input file.py
         - HEFT algorithm. This is the scheduling algorithm which decides
         where to run each task. It writes its output in a configuration file,
         needed in the next step by the run-time centralized scheduler.
             - INPUT: input.tgff
             - OUTPUT: configuration.txt
-            - USER GUIDE: from apac scheduler/heft/ run:
+            - USER GUIDE: from apac_scheduler/heft/ run:
             python main.py
 
     - CENTRALIZED SCHEDULER WITH PROFILER
@@ -139,19 +139,19 @@ The system consists of several tools and requires the following steps:
         configuration file, given by HEFT, and orchestrates the execution of
         tasks on given nodes.
             - INPUT: configuration.txt, nodes.txt
-            - OUTPUT: DAG output files appear in apac scheduler/centralized scheduler/output/
+            - OUTPUT: DAG output files appear in apac_scheduler/centralized_scheduler/output/
             folder
-            - USER GUIDE: inside apac scheduler/centralized scheduler/
+            - USER GUIDE: inside apac_scheduler/centralized_scheduler/
             folder run:
             python3 scheduler.py
-            wait several seconds and move input1.txt to apac scheduler/centralized scheduler/input/
+            wait several seconds and move input1.txt to apac scheduler/centralized_scheduler/input/
             folder (repeat the same for other input files).
         - Run-time task profiler
         
         
 # Project Structure 
 
-It is assumed that the folder apac scheduler/ is located on the users home path
+It is assumed that the folder apac_scheduler/ is located on the users home path
 (for example: /home/apac). The structure of the project within apac scheduler/
 folder is the following:
 
@@ -159,7 +159,7 @@ folder is the following:
 - dag.txt
 - configuration.txt (output of the HEFT algorithm)
 - profiler node1.txt, profiler node2.txt,... (output of execution profiler)
-- docker execution profiler/
+- docker_execution_profiler/
     - scheduler.py
     - app/
         - dag.txt
@@ -178,15 +178,15 @@ folder is the following:
     - nodes.txt
     - read config.txt
 - heft/
-    - write input file.py
-    - heft dup.py
+    - write_input_file.py
+    - heft_dup.py
     - main.py
-    - create input.py
+    - create_input.py
     - cpop.py
     - read config.py
     - input.tgff (output of write input file.py)
 - central network profiler/
-    - folder central input: link list.txt, nodes.txt, central.txt
+    - folder central_input: link list.txt, nodes.txt, central.txt
     - central copy nodes
     - central init
     - central query statistics.py
