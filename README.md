@@ -3,7 +3,7 @@
 # Introduction
 The experiment is run on a host node (also called scheduler).
 List of nodes (droplets) for the experiment, including the scheduler node, is
-kept in file nodes.txt (user need to fill the file with appropriate IP addresses,
+kept in file nodes.txt (the user needs to fill the file with the appropriate IP addresses,
 usernames and passwords of their servers):
 
 | scheduler | IP |username | pw |
@@ -18,7 +18,7 @@ DAG description (as adjacency list) is kept in file dag.txt:
 | ------ |
 | task2 task4 |
 | task3 task4 |
-| task3 scheduler  |
+| task4 scheduler  |
 
 The running example given above is a four task DAG:
 
@@ -26,14 +26,14 @@ The running example given above is a four task DAG:
 | ------ |
 | task2 -> task4 |
 | task3 ->  task4 |
-| task3 ->  scheduler  |
+| task4 ->  scheduler  |
 
 The last line tells that the ‘childless task’ (task4) should send its output to
 the scheduler node. The other lines list the child tasks after the arrow.
 
 # User Guide
 The system consists of several tools and requires the following steps:
-  - Profiling:
+  - PROFILING:
     - Execution profiler: produces profiler nodeX.txt file for each node,
     which gives the execution time of each task on that node and the
     amount of data it passes to its child tasks. These results are required
