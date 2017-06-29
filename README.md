@@ -50,7 +50,7 @@ The system consists of several tools and requires the following steps:
                 ```
                 where hostname is the name of the node (node1, node2,
                 etc.,..).
-            2. inside apac scheduler/docker execution profiler/ folder
+            2. inside apac_scheduler/docker_execution_profiler/ folder
             perform the following command:
                 ```sh
                 $ python3 scheduler.py
@@ -125,14 +125,18 @@ The system consists of several tools and requires the following steps:
             - INPUT: dag.txt, profiler_nodeNUM.txt
             - OUTPUT: input.tgff
             - USER GUIDE: from apac_scheduler/heft/ folder execute:
-            python write input file.py
+            ```sh
+            $ python write_input_file.py
+            ```
         - HEFT algorithm. This is the scheduling algorithm which decides
         where to run each task. It writes its output in a configuration file,
         needed in the next step by the run-time centralized scheduler.
             - INPUT: input.tgff
             - OUTPUT: configuration.txt
             - USER GUIDE: from apac_scheduler/heft/ run:
-            python main.py
+            ```sh
+            $ python main.py
+            ```
 
     - CENTRALIZED SCHEDULER WITH PROFILER
         - Centralized scheduler. This is the run-time scheduler. It takes the
@@ -143,7 +147,9 @@ The system consists of several tools and requires the following steps:
             folder
             - USER GUIDE: inside apac_scheduler/centralized_scheduler/
             folder run:
+            ```sh
             python3 scheduler.py
+            ```
             wait several seconds and move input1.txt to apac scheduler/centralized_scheduler/input/
             folder (repeat the same for other input files).
         - Run-time task profiler
@@ -152,7 +158,7 @@ The system consists of several tools and requires the following steps:
 # Project Structure 
 
 It is assumed that the folder apac_scheduler/ is located on the users home path
-(for example: /home/apac). The structure of the project within apac scheduler/
+(for example: /home/apac). The structure of the project within apac_scheduler/
 folder is the following:
 
 - nodes.txt
