@@ -1,4 +1,4 @@
-# apac_scheduler
+# circe
 
 # Introduction
 The experiment is run on a host node (also called scheduler).
@@ -39,28 +39,25 @@ The system consists of several tools and requires the following steps:
     which gives the execution time of each task on that node and the
     amount of data it passes to its child tasks. These results are required
     in the next step for HEFT algorithm.
-    - INPUT: dag.txt, nodes.txt, DAG task files (task1.py, task2.py,. . . ),
-        DAG input file (input.txt)
+    - INPUT: dag.txt, nodes.txt, DAG task files (task1.py, task2.py,. . . ), DAG input file (input.txt)
     - OUTPUT: profiler_nodeNUM.txt
     - USER GUIDE: There are two ways to run the execution profiler:
         1. copy the app/ folder to the each of the nodes using scp and
-            inside app/ folder perform the following commands:
-                ```sh
-                $ docker build –t profilerimage .
-                $ docker run –h hostname profilerimage
-                ```
-                where hostname is the name of the node (node1, node2,
-                etc.,..).
-        2. inside apac_scheduler/docker_execution_profiler/ folder
-            perform the following command:
-                ```sh
-                $ python3 scheduler.py
-                 ```
-                In this case, the file scheduler.py will copy the app/ folder
-                to each of the nodes and execute the docker commands.
-            In both cases make sure that the command inside file app/start.sh
-            gives the details (IP, username and password) of your sched-
-            uler machine.
+           inside app/ folder perform the following commands:
+           ```sh
+           $ docker build –t profilerimage .
+           $ docker run –h hostname profilerimage
+           ```
+           where hostname is the name of the node (node1, node2, etc.,..).
+        2. inside circe/docker_execution_profiler/ folder
+           perform the following command:
+           ```sh
+           $ python3 scheduler.py
+           ```
+           In this case, the file scheduler.py will copy the app/ folder
+           to each of the nodes and execute the docker commands.
+           In both cases make sure that the command inside file app/start.sh
+           gives the details (IP, username and password) of your scheduler machine.
   - Central network profiler: automatically scheduling and logs com-
     munication information of all links betweet nodes in the network,
     which gives the quaratic regression parameters of each link repre-
@@ -114,22 +111,21 @@ The system consists of several tools and requires the following steps:
     scheduler node and stored into mongoDB.The information includes:
     IP address of each node, cpu utilization of each node, memory uti-
     lization of each node, and the latest update time.
-      - USER GUIDE:
-        For working nodes: copy the mongo script/ folder to each
-        working node using scp.
-        in each node, type:
-            ```sh
-            $ python2 mongo script/install package.py
-            $ python2 mongo script/server.py
-            ```
-            For scheduler node: copy mongo control/ folder to scheduler node using scp under apac                   scheduler/central network profiler if a node’s IP address changes, just update the mongo                control/ip path file inside apac scheduler/central network profiler/mongo control/ folder,              type: python2 install package.py
+    - USER GUIDE:
+      For working nodes: copy the mongo script/ folder to each
+      working node using scp. In each node, type:
+      ```sh
+      $ python2 mongo script/install package.py
+      $ python2 mongo script/server.py
+      ```
+      For scheduler node: copy mongo control/ folder to scheduler node using scp under circe/central_network profiler if a node’s IP address changes, just update the mongo control/ip path file inside apac scheduler/central network profiler/mongo control/ folder, type: python2 install package.py
             python2 jobs.py (if you want to run in backend, type: python2 jobs.py and then close the                terminal)
             
 - HEFT
   - HEFT input file construction: HEFT implementation takes a file of .tgff format, which describes the DAG and its various costs, as input. The first step is to construct this file.
     - INPUT: dag.txt, profiler_nodeNUM.txt
     - OUTPUT: input.tgff
-    - USER GUIDE: from apac_scheduler/heft/ folder execute:
+    - USER GUIDE: from circe/heft/ folder execute:
     ```sh
      $ python write_input_file.py
     ```
@@ -138,18 +134,18 @@ The system consists of several tools and requires the following steps:
     needed in the next step by the run-time centralized scheduler.
     - INPUT: input.tgff
     - OUTPUT: configuration.txt
-    - USER GUIDE: from apac_scheduler/heft/ run:
+    - USER GUIDE: from circe/heft/ run:
     ```sh
     $ python main.py
     ```
 
 - CENTRALIZED SCHEDULER WITH PROFILER
-  - Centralized scheduler. This is the run-time scheduler. It takes the
+  - Centralized run-time scheduler. This is the run-time scheduler. It takes the
     configuration file, given by HEFT, and orchestrates the execution of
     tasks on given nodes.
     - INPUT: configuration.txt, nodes.txt
-    - OUTPUT: DAG output files appear in apac_scheduler/centralized_scheduler/output/ folder
-    - USER GUIDE: inside apac_scheduler/centralized_scheduler/ folder run:
+    - OUTPUT: DAG output files appear in circecentralized_scheduler/output/ folder
+    - USER GUIDE: inside circe/centralized_scheduler/ folder run:
     ```sh
     $ python3 scheduler.py
     ```
@@ -160,8 +156,8 @@ The system consists of several tools and requires the following steps:
         
 # Project Structure 
 
-It is assumed that the folder apac_scheduler/ is located on the users home path
-(for example: /home/apac). The structure of the project within apac_scheduler/
+It is assumed that the folder circe/ is located on the users home path
+(for example: /home/apac). The structure of the project within circe/
 folder is the following:
 
 - nodes.txt
@@ -204,15 +200,15 @@ folder is the following:
     - folder network script: automate droplet.py, droplet generate random files, droplet init, droplet scp time transfer
     - folder mongo control
         - mongo scrip/
-            - server.py
-            - install package.py
+          - server.py
+          - install package.py
         - mongo control/
-            - insert to mongo.py
-            - read info.py
-            - read info.pyc
-            - install package.py
-            - jobs.py
-            - ip path
+          - insert to mongo.py
+          - read info.py
+          - read info.pyc
+          - install package.py
+          - jobs.py
+          - ip path
         
             
             
