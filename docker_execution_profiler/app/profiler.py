@@ -1,8 +1,8 @@
 """
- * Copyright (c) 2016, Autonomous Networks Research Group. All rights reserved.
+ * Copyright (c) 2017, Autonomous Networks Research Group. All rights reserved.
  *     contributors: 
- *      Aleksandra Knezevic
- *      Bhaskar Krishnamachari
+ *      Aleksandra Knezevic, June 2017
+ *      Bhaskar Krishnamachari, June 2017
  *     Read license file in main directory for more details  
 """
 
