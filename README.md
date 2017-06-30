@@ -68,19 +68,25 @@ The system consists of several tools and requires the following steps:
         - INPUT: central.txt stores credential information of the central node:
         IP username pw 
         nodes.txt stores credential information of the nodes information:
-        Tag,Node,Region
-        node1,username1@IP1,region1
-        node2,username2@IP2,region2
-        node3,username3@IP3,region3
+        
+        | Tag,Node,Region |
+        |--------|
+        | node1,username1@IP1,region1 |
+        | node2,username2@IP2,region2 |
+        | node3,username3@IP3,region3 |
+        
         link list.txt stores the the links between nodes required to log
         the communication.
-        Source,Destination
-        node1,node2
-        node1,node3
-        node2,node1
-        node2,node3
-        node3,node1
-        node3,node2
+        
+        | Source,Destination |
+        |------|
+        | node1,node2 |
+        | node1,node3 |
+        | node2,node1 |
+        | node2,node3 |
+        | node3,node1 |
+        | node3,node2 |
+        
         - OUTPUT: all quadratic regression parameters are stored in the
         local MongoDB on the central node.
         - USER GUIDE AT CENTRAL NETWORK PROFILER:
@@ -112,8 +118,8 @@ The system consists of several tools and requires the following steps:
         working node using scp.
         in each node, type:
             ```sh
-            python2 mongo script/install package.py
-            python2 mongo script/server.py
+            $ python2 mongo script/install package.py
+            $ python2 mongo script/server.py
             ```
             For scheduler node: copy mongo control/ folder to scheduler node using scp under apac                   scheduler/central network profiler if a node’s IP address changes, just update the mongo                control/ip path file inside apac scheduler/central network profiler/mongo control/ folder,              type: python2 install package.py
             python2 jobs.py (if you want to run in backend, type: python2 jobs.py and then close the                terminal)
