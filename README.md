@@ -96,7 +96,7 @@ The system consists of several tools and requires the following steps:
             lection, copy the scheduling information and network scripts
             for each node in the node list and schedule updating the
             central database every 10th minute.  
-     - USER GUIDE AT OTHER DROPLETS:
+    - USER GUIDE AT OTHER DROPLETS:
         1. The central network profiler copied all required scheduling
             files and network scripts to the folder online profiler in each
             droplet.
@@ -144,7 +144,7 @@ The system consists of several tools and requires the following steps:
     configuration file, given by HEFT, and orchestrates the execution of
     tasks on given nodes.
     - INPUT: configuration.txt, nodes.txt
-    - OUTPUT: DAG output files appear in circecentralized_scheduler/output/ folder
+    - OUTPUT: DAG output files appear in circe/centralized_scheduler/output/ folder
     - USER GUIDE: inside circe/centralized_scheduler/ folder run:
     ```sh
     $ python3 scheduler.py
