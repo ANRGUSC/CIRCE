@@ -126,40 +126,36 @@ The system consists of several tools and requires the following steps:
             python2 jobs.py (if you want to run in backend, type: python2 jobs.py and then close the                terminal)
             
 - HEFT
-  -  HEFT input file construction: HEFT implementation takes a
-        file of .tgff format, which describes the DAG and its various costs, as
-        input. The first step is to construct this file.
-            - INPUT: dag.txt, profiler_nodeNUM.txt
-            - OUTPUT: input.tgff
-            - USER GUIDE: from apac_scheduler/heft/ folder execute:
-            ```sh
-            $ python write_input_file.py
-            ```
+  - HEFT input file construction: HEFT implementation takes a file of .tgff format, which describes the DAG and its various costs, as input. The first step is to construct this file.
+    - INPUT: dag.txt, profiler_nodeNUM.txt
+    - OUTPUT: input.tgff
+    - USER GUIDE: from apac_scheduler/heft/ folder execute:
+    ```sh
+     $ python write_input_file.py
+    ```
   - HEFT algorithm. This is the scheduling algorithm which decides
-        where to run each task. It writes its output in a configuration file,
-        needed in the next step by the run-time centralized scheduler.
-            - INPUT: input.tgff
-            - OUTPUT: configuration.txt
-            - USER GUIDE: from apac_scheduler/heft/ run:
-            ```sh
-            $ python main.py
-            ```
+    where to run each task. It writes its output in a configuration file,
+    needed in the next step by the run-time centralized scheduler.
+    - INPUT: input.tgff
+    - OUTPUT: configuration.txt
+    - USER GUIDE: from apac_scheduler/heft/ run:
+    ```sh
+    $ python main.py
+    ```
 
 - CENTRALIZED SCHEDULER WITH PROFILER
-        - Centralized scheduler. This is the run-time scheduler. It takes the
-        configuration file, given by HEFT, and orchestrates the execution of
-        tasks on given nodes.
-            - INPUT: configuration.txt, nodes.txt
-            - OUTPUT: DAG output files appear in apac_scheduler/centralized_scheduler/output/
-            folder
-            - USER GUIDE: inside apac_scheduler/centralized_scheduler/
-            folder run:
-            ```sh
-            $ python3 scheduler.py
-            ```
-            wait several seconds and move input1.txt to apac scheduler/centralized_scheduler/input/
-            folder (repeat the same for other input files).
-        - Run-time task profiler
+  - Centralized scheduler. This is the run-time scheduler. It takes the
+    configuration file, given by HEFT, and orchestrates the execution of
+    tasks on given nodes.
+    - INPUT: configuration.txt, nodes.txt
+    - OUTPUT: DAG output files appear in apac_scheduler/centralized_scheduler/output/ folder
+    - USER GUIDE: inside apac_scheduler/centralized_scheduler/ folder run:
+    ```sh
+    $ python3 scheduler.py
+    ```
+    wait several seconds and move input1.txt to apac scheduler/centralized_scheduler/input/
+    folder (repeat the same for other input files).
+  - Run-time task profiler
         
         
 # Project Structure 
