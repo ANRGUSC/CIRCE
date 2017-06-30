@@ -1,3 +1,11 @@
+"""
+ * Copyright (c) 2017, Autonomous Networks Research Group. All rights reserved.
+ *     contributors: 
+ *      Aleksandra Knezevic, June 2017
+ *      Bhaskar Krishnamachari, June 2017
+ *     Read license file in main directory for more details  
+"""
+
 import multiprocessing
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -49,7 +57,7 @@ class Handler1(FileSystemEventHandler):
             new_file = os.path.split(event.src_path)[-1]
             #case if you are sending back to scheduler
             if nexttasks[0] == 'scheduler':
-                sftp[0].put(event.src_path, os.path.join('apac_scheduler/centralized_scheduler_with_profiler/output', new_file))
+                sftp[0].put(event.src_path, os.path.join('circe/centralized_scheduler_with_profiler/output', new_file))
             else:
                 i=0
                 for sftp_output in sftp:
