@@ -154,7 +154,7 @@ The system consists of several tools and requires the following steps:
             - USER GUIDE: inside apac_scheduler/centralized_scheduler/
             folder run:
             ```sh
-            python3 scheduler.py
+            $ python3 scheduler.py
             ```
             wait several seconds and move input1.txt to apac scheduler/centralized_scheduler/input/
             folder (repeat the same for other input files).
