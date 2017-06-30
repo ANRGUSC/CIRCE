@@ -85,7 +85,7 @@ ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect(IP, username=user, password=pw)
 sftp=ssh.open_sftp()
-file_path = os.path.join('apac_scheduler','profiler_'+nodename+'.txt')
+file_path = os.path.join('circe','profiler_'+nodename+'.txt')
 sftp.put('profiler_'+nodename+'.txt', file_path)
 
 sftp.close()
