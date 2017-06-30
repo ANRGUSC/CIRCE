@@ -1,4 +1,4 @@
-# circe
+# CIRCE - CentralIzed Runtime sChedulEr
 
 # Introduction
 The experiment is run on a host node (also called scheduler).
