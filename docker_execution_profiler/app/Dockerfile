@@ -1,3 +1,11 @@
+
+# Copyright (c) 2017, Autonomous Networks Research Group. All rights reserved.
+#   contributors: 
+#   Aleksandra Knezevic, June 2017
+#   Bhaskar Krishnamachari, June 2017
+# Read license file in main directory for more details  
+
+
 FROM ubuntu:16.04
 
 RUN apt-get -yqq update
