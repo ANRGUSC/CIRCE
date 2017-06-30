@@ -1,4 +1,4 @@
 Tag,Node,Region
-node1,apac@104.131.111.58,NYC
-node2,apac@139.59.58.153,BLR
-node3,apac@207.154.243.148,FRA
+node1,USERNAME@IP1,REG1
+node2,USERNAME@IP2,REG2
+node3,USERNAME@IP3,REG3

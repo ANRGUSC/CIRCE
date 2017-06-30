@@ -1,11 +1,17 @@
 #!/bin/bash
+: '
+    ** Copyright (c) 2017, Autonomous Networks Research Group. All rights reserved.
+    **     contributor: Quynh Nguyen, Bhaskar Krishnamachari
+    **     Read license file in main directory for more details
+'
 
 for account in `awk -F ',' 'NR >=2 {print $2}' central_input/nodes.txt `; do
     echo $account
     remote_folder='online_profiler'
     droplet_folder='network_script'
-    sshpass -p 'apac20!7' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q $account 'mkdir -p online_profiler'
-    sshpass -p 'apac20!7' scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q  central_input/central.txt $account:~/$remote_folder
-    sshpass -p 'apac20!7' scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q -r $droplet_folder $account:~/$remote_folder
-    sshpass -p 'apac20!7' scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q scheduling/$account/scheduling.txt $account:~/$remote_folder/
+    password=PASSWORD #replaced by your password to the nodes
+    sshpass -p $password ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q $account 'mkdir -p online_profiler'
+    sshpass -p $password scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q  central_input/central.txt $account:~/$remote_folder
+    sshpass -p $password scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q -r $droplet_folder $account:~/$remote_folder
+    sshpass -p $password scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q scheduling/$account/scheduling.txt $account:~/$remote_folder/
 done

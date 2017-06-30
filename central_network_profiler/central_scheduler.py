@@ -1,3 +1,8 @@
+"""
+ ** Copyright (c) 2017, Autonomous Networks Research Group. All rights reserved.
+ **     contributor: Quynh Nguyen, Bhaskar Krishnamachari
+ **     Read license file in main directory for more details
+"""
 import os
 from pymongo import MongoClient
 import pandas as pd
@@ -17,8 +22,6 @@ def do_update_quadratic():
                 if file.startswith("."): continue
                 measurement_file = os.path.join(subdir, file)
                 df = pd.read_csv(measurement_file,delimiter=',',header=0)
-                # print('--------')
-                # print(df)
                 data_json = json.loads(df.to_json(orient='records'))
                 logging.insert(data_json)
     except Exception as e:

@@ -1,3 +1,9 @@
+"""
+ ** Copyright (c) 2017, Autonomous Networks Research Group. All rights reserved.
+ **     contributor: Quynh Nguyen, Bhaskar Krishnamachari
+ **     Read license file in main directory for more details
+"""
+
 import os
 import csv
 import pymongo
@@ -44,4 +50,4 @@ if __name__ == '__main__':
     predicted = d.do_query_quaratic(source,destination,file_size)
     msg = "Expected latency is %f [ms]" %predicted
     print(msg)
-    
+

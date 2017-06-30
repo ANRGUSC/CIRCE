@@ -1,3 +1,9 @@
+"""
+ ** Copyright (c) 2017, Autonomous Networks Research Group. All rights reserved.
+ **     contributor: Quynh Nguyen, Bhaskar Krishnamachari
+ **     Read license file in main directory for more details
+"""
+
 import random
 import subprocess
 import decimal
@@ -13,12 +19,13 @@ import pandas as pd
 import numpy as np
 from pymongo import MongoClient
 import time
+import stat
 
 
 class droplet_measurement():
     def __init__(self):
-        self.username = 'apac'
-        self.password = 'apac20!7'
+        self.username = USERNAME
+        self.password = PASSWORD
         self.file_size = [1,10,100,1000,10000]#K =1024
         self.dir_local = '../generated_test'
         self.dir_remote = 'online_profiler/received_test'
@@ -149,16 +156,23 @@ class droplet_regression():
             writer = csv.writer(f)
             writer.writerows(reg_data)
 
-    def do_send_parameters(self,central_IP):
+    def do_send_parameters(self):
         # Sending information to central node
-        client = paramiko.SSHClient()
-        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        client.connect(central_IP, username=self.username,password=self.password)
         local_path = self.parameters_file
         remote_path = '%s'%(self.dir_remote)
-        scp = SCPClient(client.get_transport())
-        scp.put(local_path, remote_path)
-        scp.close()
+        copy_script = os.path.join(os.getcwd(),"droplet_copy_central")
+        bash_script = copy_script + " "+ local_path+ " "+ self.central_IP+" "+ remote_path
+        st = os.stat(copy_script)
+        os.chmod(copy_script, st.st_mode | stat.S_IEXEC)
+        proc = subprocess.Popen(bash_script,shell = True,stdout=subprocess.PIPE)
+        # client = paramiko.SSHClient()
+        # client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        # client.connect(central_IP, username=self.username,password=self.password)
+        # local_path = self.parameters_file
+        # remote_path = '%s'%(self.dir_remote)
+        # scp = SCPClient(client.get_transport())
+        # scp.put(local_path, remote_path)
+        # scp.close()
 
 
 def prepare_database():
@@ -181,7 +195,7 @@ def regression_job():
     d = droplet_regression()
     d.do_add_host()
     d.do_regression()
-    d.do_send_parameters(d.central_IP)
+    d.do_send_parameters()
 def measurement_job():
     print('Log measurement every minute....')
     d = droplet_measurement()
