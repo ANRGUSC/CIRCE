@@ -33,16 +33,17 @@ the scheduler node. The other lines list the child tasks after the arrow.
 
 # User Guide
 The system consists of several tools and requires the following steps:
-  - PROFILING:
-    - Execution profiler: produces profiler_nodeX.txt file for each node,
+  
+- PROFILING:
+  - Execution profiler: produces profiler_nodeX.txt file for each node,
     which gives the execution time of each task on that node and the
     amount of data it passes to its child tasks. These results are required
     in the next step for HEFT algorithm.
-        - INPUT: dag.txt, nodes.txt, DAG task files (task1.py, task2.py,. . . ),
+    - INPUT: dag.txt, nodes.txt, DAG task files (task1.py, task2.py,. . . ),
         DAG input file (input.txt)
-        - OUTPUT: profiler_nodeNUM.txt
-        - USER GUIDE: There are two ways to run the execution profiler:
-            1. copy the app/ folder to the each of the nodes using scp and
+    - OUTPUT: profiler_nodeNUM.txt
+    - USER GUIDE: There are two ways to run the execution profiler:
+        1. copy the app/ folder to the each of the nodes using scp and
             inside app/ folder perform the following commands:
                 ```sh
                 $ docker build –t profilerimage .
@@ -50,7 +51,7 @@ The system consists of several tools and requires the following steps:
                 ```
                 where hostname is the name of the node (node1, node2,
                 etc.,..).
-            2. inside apac_scheduler/docker_execution_profiler/ folder
+        2. inside apac_scheduler/docker_execution_profiler/ folder
             perform the following command:
                 ```sh
                 $ python3 scheduler.py
@@ -60,12 +61,12 @@ The system consists of several tools and requires the following steps:
             In both cases make sure that the command inside file app/start.sh
             gives the details (IP, username and password) of your sched-
             uler machine.
-    - Central network profiler: automatically scheduling and logs com-
+  - Central network profiler: automatically scheduling and logs com-
     munication information of all links betweet nodes in the network,
     which gives the quaratic regression parameters of each link repre-
     senting the corresponding communication cost. These results are
     required in the next step for HEFT algorithm.
-        - INPUT: central.txt stores credential information of the central node:
+    - INPUT: central.txt stores credential information of the central node:
         IP username pw 
         nodes.txt stores credential information of the nodes information:
         
@@ -87,9 +88,9 @@ The system consists of several tools and requires the following steps:
         | node3,node1 |
         | node3,node2 |
         
-        - OUTPUT: all quadratic regression parameters are stored in the
+    - OUTPUT: all quadratic regression parameters are stored in the
         local MongoDB on the central node.
-        - USER GUIDE AT CENTRAL NETWORK PROFILER:
+    - USER GUIDE AT CENTRAL NETWORK PROFILER:
             1. run the command ./central init to install required libraries
             2. inside the folder central input add information about the
             nodes and the links.
@@ -98,22 +99,22 @@ The system consists of several tools and requires the following steps:
             lection, copy the scheduling information and network scripts
             for each node in the node list and schedule updating the
             central database every 10th minute.  
-        - USER GUIDE AT OTHER DROPLETS:
-            1. The central network profiler copied all required scheduling
+     - USER GUIDE AT OTHER DROPLETS:
+        1. The central network profiler copied all required scheduling
             files and network scripts to the folder online profiler in each
             droplet.
-            2. run the command ./droplet init to install required libraries
-            3. run the command python3 automate droplet.py to gen-
-            erate files with different sizes to prepare for the logging mea-
-            surements, generate the droplet database, schedule logging
-            measurement every minute and logging regression every 10th
-            minute.
-    - System resource profiler:This tool will get system utilization from
+        2. run the command ./droplet init to install required libraries
+        3. run the command python3 automate droplet.py to gen-
+           erate files with different sizes to prepare for the logging mea-
+           surements, generate the droplet database, schedule logging
+           measurement every minute and logging regression every 10th
+           minute.
+  - System resource profiler:This tool will get system utilization from
     node 1, node 2 and node 3. Then these information will be sent to
     scheduler node and stored into mongoDB.The information includes:
     IP address of each node, cpu utilization of each node, memory uti-
     lization of each node, and the latest update time.
-        - USER GUIDE:
+      - USER GUIDE:
         For working nodes: copy the mongo script/ folder to each
         working node using scp.
         in each node, type:
@@ -124,8 +125,8 @@ The system consists of several tools and requires the following steps:
             For scheduler node: copy mongo control/ folder to scheduler node using scp under apac                   scheduler/central network profiler if a node’s IP address changes, just update the mongo                control/ip path file inside apac scheduler/central network profiler/mongo control/ folder,              type: python2 install package.py
             python2 jobs.py (if you want to run in backend, type: python2 jobs.py and then close the                terminal)
             
-      - HEFT
-        -  HEFT input file construction: HEFT implementation takes a
+- HEFT
+  -  HEFT input file construction: HEFT implementation takes a
         file of .tgff format, which describes the DAG and its various costs, as
         input. The first step is to construct this file.
             - INPUT: dag.txt, profiler_nodeNUM.txt
@@ -134,7 +135,7 @@ The system consists of several tools and requires the following steps:
             ```sh
             $ python write_input_file.py
             ```
-        - HEFT algorithm. This is the scheduling algorithm which decides
+  - HEFT algorithm. This is the scheduling algorithm which decides
         where to run each task. It writes its output in a configuration file,
         needed in the next step by the run-time centralized scheduler.
             - INPUT: input.tgff
@@ -144,7 +145,7 @@ The system consists of several tools and requires the following steps:
             $ python main.py
             ```
 
-    - CENTRALIZED SCHEDULER WITH PROFILER
+- CENTRALIZED SCHEDULER WITH PROFILER
         - Centralized scheduler. This is the run-time scheduler. It takes the
         configuration file, given by HEFT, and orchestrates the execution of
         tasks on given nodes.
