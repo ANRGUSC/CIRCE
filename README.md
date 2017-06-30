@@ -182,8 +182,9 @@ folder is the following:
         - start.sh
         - profiler.py
 - centralized scheduler with profiler/
-    - input/
-    - output/
+    - input/ (this folder should be created by user)
+    - output/ (this folder should be created by user)
+    - input1.txt
     - scheduler.py
     - monitor.py
     - DAG task files (task1.py, task2.py,...)
