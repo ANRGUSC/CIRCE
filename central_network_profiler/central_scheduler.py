@@ -12,6 +12,7 @@ import time
 import subprocess
 
 def do_update_quadratic():
+    print('Updating the central database...')
     client_mongo = MongoClient('mongodb://localhost:27017/')
     db = client_mongo.central_network_profiler
     parameters_folder='parameters'
@@ -48,8 +49,8 @@ for cur_node, row in df_rel.iterrows():
     temp = df_links.loc[df_links['Source']==cur_node]
     temp = pd.merge(temp, df_rel, left_on = 'Destination', right_index = True, how = 'inner')
     temp_schedule = pd.DataFrame(columns=['Node','Region'])
-    temp_schedule=temp_schedule.append({'Node':dict_rel.get(cur_node)[0],'Region':row['Region']},ignore_index=True)
-    temp_schedule=temp_schedule.append(temp[['Node','Region']],ignore_index=False)
+    temp_schedule=temp_schedule.append({'Node':dict_rel.get(cur_node)[0],'Region':row['Region'],'Password':row['Password']},ignore_index=True)
+    temp_schedule=temp_schedule.append(temp[['Node','Region','Password']],ignore_index=False)
     temp_schedule.to_csv(os.path.join(cur_schedule,output_file),header=False,index=False)
 
 print('Step 2: Create the central database ')
@@ -59,7 +60,7 @@ buffer_size = len(df_links.index)*100
 db.create_collection('quadratic_parameters', capped=True, size=1000000, max=buffer_size)
 
 print('Step 3: Copying files and network scripts to the droplets ')
-bash_script = os.path.join(os.getcwd(),'central_copy_nodes')
+bash_script = os.path.join(os.getcwd(),'central_copy_nodes')+ " "+ " ".join(df_rel["Password"])
 proc = subprocess.Popen(bash_script,shell = True,stdout=subprocess.PIPE)
 
 print('Step 4: Scheduling updating the central database')
@@ -72,6 +73,6 @@ sched.add_job(do_update_quadratic,'interval', id='update',minutes=10,replace_exi
 sched.start()
 while True:
     time.sleep(10)
-#sched.shutdown()
+sched.shutdown()
 
 

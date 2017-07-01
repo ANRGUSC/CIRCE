@@ -7,27 +7,24 @@
 '
 
 root_folder="$(dirname "$PWD")"
-my_ip="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
-#echo $my_ip
+my_ip="$(ifconfig | grep -A 1 'eth0 ' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
 user_name=$(whoami)
 my_account="$user_name@$my_ip"
-#echo $my_account
-
-
 
 file_folder=$root_folder/generated_test
 file_name='_test_'
 
 remote_server=$1
+remote_password=$2
+RANDOM_SIZE=$3
+
+
 remote_folder=":~/online_profiler/received_test"
 remote_path=$remote_server$remote_folder
-
-RANDOM_SIZE=$2
 random_file=$my_ip$file_name$RANDOM_SIZE"K"
 
 file_path=$file_folder/$random_file
-remote_password=PASSWORD
-#echo "Transmit from $file_path to $remote_path"
+echo "sshpass -p $remote_password scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q -r $file_path $remote_path" >> measurement.log
 result=`(time sshpass -p $remote_password scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q -r $file_path $remote_path) 2>&1 | grep real`
 echo $result
 

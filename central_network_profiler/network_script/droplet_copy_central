@@ -9,5 +9,5 @@
 source_file=$1
 account=$2
 remote_file=$3
-central_password=PASSWORD
-sshpass -p $central_password scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q $source_file $account:~/$remote_file
+remote_password=$4
+sshpass -p $remote_password scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q $source_file $account:~/$remote_file

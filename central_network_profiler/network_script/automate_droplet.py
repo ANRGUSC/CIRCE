@@ -24,14 +24,14 @@ import stat
 
 class droplet_measurement():
     def __init__(self):
-        self.username = USERNAME
-        self.password = PASSWORD
         self.file_size = [1,10,100,1000,10000]#K =1024
         self.dir_local = '../generated_test'
         self.dir_remote = 'online_profiler/received_test'
         self.my_host =  None
         self.my_region = None
         self.hosts = []
+        self.usernames = []
+        self.passwords = []
         self.regions = []
         self.client_mongo = None
         self.db = None
@@ -51,7 +51,8 @@ class droplet_measurement():
                 for row in reader:
                     self.hosts.append(row[0].split('@')[1])
                     self.regions.append(row[1])
-            #print(self.hosts)
+                    self.usernames.append(row[0].split('@')[0])
+                    self.passwords.append(row[2])
         else:
             print("No detected droplets information... ")
 
@@ -65,7 +66,8 @@ class droplet_measurement():
             remote_path = '%s'%(self.dir_remote)
             # print('---BASH---')
             # print(random_size)
-            bash_script = self.measurement_script + " "+self.username+"@"+self.hosts[idx] + " "+ str(random_size)
+            bash_script = self.measurement_script + " "+self.usernames[idx]+"@"+self.hosts[idx] + \
+                          " " + self.passwords[idx] + " "+ str(random_size)
             proc = subprocess.Popen(bash_script,shell = True,stdout=subprocess.PIPE)
             tmp = proc.stdout.read().strip().decode("utf-8")
             results = tmp.split(" ")[1]
@@ -73,14 +75,14 @@ class droplet_measurement():
             m = float(results.split("m")[0]) #minute
             s = float(results.split("m")[1][:-1]) #second
             elapsed=m*60+s
-            #print(elapsed)
+            # print(elapsed)
             cur_time = datetime.datetime.utcnow()
             logging = self.db[self.hosts[idx]]
             new_log = {"Source[IP]":self.my_host,"Source[Reg]":self.my_region,"Destination[IP]":self.hosts[idx],
                         "Destination[Reg]":self.regions[idx],'Time_Stamp[UTC]':cur_time,
                        'File_Size[KB]':random_size,'Transfer_Time[s]':elapsed}
             log_id = logging.insert_one(new_log).inserted_id
-            #print(log_id)
+            # print(log_id)
 
 
 
@@ -92,19 +94,22 @@ class droplet_regression():
         self.my_region = None
         self.hosts = []
         self.regions = []
+        self.usernames = []
+        self.passwords = []
         self.parameters_file = None
         self.scheduling_file = '../scheduling.txt'
-        self.dir_remote = 'apac_scheduler/central_network_profiler/parameters'
+        self.dir_remote = 'Network_Profiler/parameters'
         with open('../central.txt','r') as f:
             line = f.read().split(' ')
             self.central_IP= line[0]
-            self.username = line[1]
-            self.password = line[2]
+            self.central_username = line[1]
+            self.central_password = line[2]
 
 
     def do_add_host(self):
         """add_host
         Add the host to the host list"""
+
         if self.scheduling_file:
             with open(self.scheduling_file, 'r') as f:
                 reader = csv.reader(f, delimiter=',')
@@ -115,6 +120,8 @@ class droplet_regression():
                 for row in reader:
                     self.hosts.append(row[0].split('@')[1])
                     self.regions.append(row[1])
+                    self.usernames.append(row[0].split('@')[0])
+                    self.passwords.append(row[2])
             #print(self.hosts)
         else:
             print("No detected droplets information... ")
@@ -161,7 +168,7 @@ class droplet_regression():
         local_path = self.parameters_file
         remote_path = '%s'%(self.dir_remote)
         copy_script = os.path.join(os.getcwd(),"droplet_copy_central")
-        bash_script = copy_script + " "+ local_path+ " "+ self.central_IP+" "+ remote_path
+        bash_script = copy_script + " "+ local_path+ " "+ self.central_IP+" "+ remote_path+ " "+self.central_password
         st = os.stat(copy_script)
         os.chmod(copy_script, st.st_mode | stat.S_IEXEC)
         proc = subprocess.Popen(bash_script,shell = True,stdout=subprocess.PIPE)
@@ -180,13 +187,13 @@ def prepare_database():
     db = client['droplet_network_profiler']
     with open('../scheduling.txt', 'r') as f:
         first_line = f.readline()
-        account, region = first_line.split(',')
+        account, region, password = first_line.split(',')
         ip = account.split('@')[1]
         db.create_collection(ip)
     with open('../scheduling.txt', 'r') as f:
         next(f)
         for line in f:
-            account, region = line.split(',')
+            account, region, password = line.split(',')
             ip = account.split('@')[1]
             db.create_collection(ip, capped=True, size=10000, max=10)
 
@@ -222,4 +229,4 @@ if __name__ == '__main__':
 
     while True:
         time.sleep(10)
-    #sched.shutdown()
+    sched.shutdown()

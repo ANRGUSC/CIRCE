@@ -5,13 +5,15 @@
     **     Read license file in main directory for more details
 '
 
+n=1
 for account in `awk -F ',' 'NR >=2 {print $2}' central_input/nodes.txt `; do
     echo $account
     remote_folder='online_profiler'
     droplet_folder='network_script'
-    password=PASSWORD #replaced by your password to the nodes
+    password=${!n}
     sshpass -p $password ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q $account 'mkdir -p online_profiler'
     sshpass -p $password scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q  central_input/central.txt $account:~/$remote_folder
     sshpass -p $password scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q -r $droplet_folder $account:~/$remote_folder
     sshpass -p $password scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q scheduling/$account/scheduling.txt $account:~/$remote_folder/
+    let "n=n+1"
 done
