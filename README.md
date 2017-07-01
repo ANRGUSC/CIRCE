@@ -10,7 +10,7 @@ The tool is run on a host node (also called scheduler node). The tool needs info
 which nodes are available for computation, the description of the DAG along with code for 
 the corresponding tasks, and based on measurements of compute costs for each task on each 
 node and the communication cost of transferring data from one node to another, first uses a 
-DAG-based scheduling algorithm (at present, we include HEFT [1] with the tool) to determine
+DAG-based scheduling algorithm (at present, we include a modified version of an implementation [2] of HEFT [1] with the tool) to determine
 at which node to place each task from the DAG. It then deploys the corresponding tasks to each 
 node and executes each task, using input and output queues for each task for pipelined execution
 and taking care of the data transfer between different nodes.
@@ -229,4 +229,5 @@ Note that while we currently use an implementation of HEFT for use with CIRCE, o
 [1] H. Topcuoglu, S. Hariri, M.Y. Wu, Performance-Effective and Low-Complexity Task
 Scheduling for Heterogeneous Computing, IEEE Transactions on Parallel and
 Distributed Systems, Vol. 13, No. 3, pp. 260 - 274, 2002.
+[2] Ouyang Liduo, HEFT Implementation Original Source Code, https://github.com/oyld/heft  (we have modified this code in ours.)
             
