@@ -4,7 +4,7 @@
 
 CIRCE is a runtime scheduling software tool for dispersed computing, which can deploys pipelined
 computations described in the form a directed acyclic graph (DAG) on multiple geographically
-dispersed computers (nodes or droplets).
+dispersed computers (compute nodes).
 
 The tool is run on a host node (also called scheduler node). The tool needs information about
 which nodes are available for computation, the description of the DAG along with code for
@@ -16,7 +16,7 @@ at which node to place each task from the DAG. CIRCE then deploys the correspond
 node and executes each task, using input and output queues for each task for pipelined execution
 and taking care of the data transfer between different nodes.
 
-List of nodes (droplets) for the experiment, including the scheduler node, is
+List of nodes for the experiment, including the scheduler node, is
 kept in file nodes.txt (the user needs to fill the file with the appropriate IP addresses,
 usernames and passwords of their servers):
 
@@ -116,11 +116,11 @@ The system consists of several tools and requires the following steps:
             for each node in the node list and schedule updating the
             central database every 10th minute.
 
-    - USER GUIDE AT OTHER DROPLETS:
+    - USER GUIDE AT OTHER NODES:
 
         1. The central network profiler copied all required scheduling
             files and network scripts to the folder online profiler in each
-            droplet.
+            compute node (droplet).
         2. run the command ./droplet init to install required libraries
         3. run the command python3 automate droplet.py to gen-
            erate files with different sizes to prepare for the logging mea-
