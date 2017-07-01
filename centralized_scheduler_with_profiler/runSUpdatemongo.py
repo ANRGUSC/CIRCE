@@ -1,4 +1,9 @@
-# run cron jobs every kth minute
+"""
+ ** Copyright (c) 2017, Autonomous Networks Research Group. All rights reserved.
+ **     contributor: Quynh Nguyen, Bhaskar Krishnamachari
+ **     Read license file in main directory for more details
+"""
+
 import os
 import csv
 from pymongo import MongoClient

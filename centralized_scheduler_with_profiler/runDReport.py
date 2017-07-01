@@ -1,4 +1,9 @@
-# run cron job for every kth minute
+"""
+ ** Copyright (c) 2017, Autonomous Networks Research Group. All rights reserved.
+ **     contributor: Quynh Nguyen, Bhaskar Krishnamachari
+ **     Read license file in main directory for more details
+"""
+
 import paramiko
 from scp import SCPClient
 from netifaces import AF_INET, AF_INET6, AF_LINK

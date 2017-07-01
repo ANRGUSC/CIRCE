@@ -98,7 +98,7 @@ class droplet_regression():
         self.passwords = []
         self.parameters_file = None
         self.scheduling_file = '../scheduling.txt'
-        self.dir_remote = 'Network_Profiler/parameters'
+        self.dir_remote = 'apac_scheduler/central_network_profiler/parameters'
         with open('../central.txt','r') as f:
             line = f.read().split(' ')
             self.central_IP= line[0]

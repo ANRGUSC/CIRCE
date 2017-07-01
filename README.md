@@ -2,17 +2,17 @@
 
 # Introduction
 
-CIRCE is a runtime scheduling software tool for dispersed computing, which can deploys pipelined  
+CIRCE is a runtime scheduling software tool for dispersed computing, which can deploys pipelined
 computations described in the form a directed acyclic graph (DAG) on multiple geographically
 dispersed computers (nodes or droplets).
 
 The tool is run on a host node (also called scheduler node). The tool needs information about
-which nodes are available for computation, the description of the DAG along with code for 
-the corresponding tasks, and based on measurements of compute costs for each task on each 
-node and the communication cost of transferring data from one node to another, first uses a 
-DAG-based scheduling algorithm (at present, we include a modified version of an implementation [2] 
+which nodes are available for computation, the description of the DAG along with code for
+the corresponding tasks, and based on measurements of compute costs for each task on each
+node and the communication cost of transferring data from one node to another, first uses a
+DAG-based scheduling algorithm (at present, we include a modified version of an implementation [2]
 of the well-known HEFT algorithm [1] with the tool) to determine
-at which node to place each task from the DAG. CIRCE then deploys the corresponding tasks to each 
+at which node to place each task from the DAG. CIRCE then deploys the corresponding tasks to each
 node and executes each task, using input and output queues for each task for pipelined execution
 and taking care of the data transfer between different nodes.
 
@@ -47,7 +47,7 @@ the scheduler node. The other lines list the child tasks after the arrow.
 
 # User Guide
 The system consists of several tools and requires the following steps:
-  
+
 - PROFILING:
   - Execution profiler: produces profiler_nodeX.txt file for each node,
     which gives the execution time of each task on that node and the
@@ -78,30 +78,35 @@ The system consists of several tools and requires the following steps:
     senting the corresponding communication cost. These results are
     required in the next step for HEFT algorithm.
     - INPUT: central.txt stores credential information of the central node:
-        IP username pw 
+        | CENTRAL IP     | USERNAME |  PASSWORD |
+        | -------------- | -------- | --------  |
+        | IP0            | USERNAME |  PASSWORD |
+
         nodes.txt stores credential information of the nodes information:
-        
-        | Tag,Node,Region |
-        |--------|
-        | node1,username1@IP1,region1 |
-        | node2,username2@IP2,region2 |
-        | node3,username3@IP3,region3 |
-        
+
+        |TAG    |  NODE (USERNAME@IP)     | REGION  | PASSWORD  |
+        |-----  |  ---------------------  | ------  | --------  |
+        |node1  |  USERNAME1@IP1          | LOC1    | PASSWORD1 |
+        |node2  |  USERNAME2@IP2          | LOC2    | PASSWORD2 |
+        |node3  |  USERNAME3@IP3          | LOC3    | PASSWORD3 |
+
         link list.txt stores the the links between nodes required to log
         the communication.
-        
-        | Source,Destination |
-        |------|
-        | node1,node2 |
-        | node1,node3 |
-        | node2,node1 |
-        | node2,node3 |
-        | node3,node1 |
-        | node3,node2 |
-        
+
+        |SOURCE(TAG) |   DESTINATION(TAG)   |
+        |----------- |   ----------------   |
+        |node1       |   node2              |
+        |node1       |   node3              |
+        |node2       |   node1              |
+        |node2       |   node3              |
+        |node3       |   node1              |
+        |node3       |   node2              |
+
     - OUTPUT: all quadratic regression parameters are stored in the
         local MongoDB on the central node.
+
     - USER GUIDE AT CENTRAL NETWORK PROFILER:
+
             1. run the command ./central init to install required libraries
             2. inside the folder central input add information about the
             nodes and the links.
@@ -109,8 +114,10 @@ The system consists of several tools and requires the following steps:
             ing files for each node, prepare the central database and col-
             lection, copy the scheduling information and network scripts
             for each node in the node list and schedule updating the
-            central database every 10th minute.  
+            central database every 10th minute.
+
     - USER GUIDE AT OTHER DROPLETS:
+
         1. The central network profiler copied all required scheduling
             files and network scripts to the folder online profiler in each
             droplet.
@@ -120,6 +127,7 @@ The system consists of several tools and requires the following steps:
            surements, generate the droplet database, schedule logging
            measurement every minute and logging regression every 10th
            minute.
+
   - System resource profiler:This tool will get system utilization from
     node 1, node 2 and node 3. Then these information will be sent to
     scheduler node and stored into mongoDB.The information includes:
@@ -134,7 +142,7 @@ The system consists of several tools and requires the following steps:
       ```
       For scheduler node: copy mongo control/ folder to scheduler node using scp under circe/central_network profiler if a node’s IP address changes, just update the mongo control/ip path file inside apac scheduler/central network profiler/mongo control/ folder, type: python2 install package.py
             python2 jobs.py (if you want to run in backend, type: python2 jobs.py and then close the                terminal)
-            
+
 - HEFT (adapted/modified from [2])
   - HEFT input file construction: HEFT implementation takes a file of .tgff format, which describes the DAG and its various costs, as input. The first step is to construct this file.
     - INPUT: dag.txt, profiler_nodeNUM.txt
@@ -166,9 +174,9 @@ The system consists of several tools and requires the following steps:
     wait several seconds and move input1.txt to apac scheduler/centralized_scheduler/input/
     folder (repeat the same for other input files).
   - Run-time task profiler
-        
-        
-# Project Structure 
+
+
+# Project Structure
 
 It is assumed that the folder circe/ is located on the users home path
 (for example: /home/apac). The structure of the project within circe/
@@ -225,7 +233,7 @@ folder is the following:
           - jobs.py
           - ip path
 
-Note that while we currently use an implementation of HEFT for use with CIRCE, other schedulers may be used as well. 
+Note that while we currently use an implementation of HEFT for use with CIRCE, other schedulers may be used as well.
 
 # References
 [1] H. Topcuoglu, S. Hariri, M.Y. Wu, Performance-Effective and Low-Complexity Task
@@ -236,4 +244,4 @@ Distributed Systems, Vol. 13, No. 3, pp. 260 - 274, 2002.
 
 # Acknowledgement
 This material is based upon work supported by Defense Advanced Research Projects Agency (DARPA) under Contract No. HR001117C0053. Any views, opinions, and/or findings expressed are those of the author(s) and should not be interpreted as representing the official views or policies of the Department of Defense or the U.S. Government.
-            
+
