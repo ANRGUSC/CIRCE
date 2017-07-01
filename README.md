@@ -233,4 +233,7 @@ Scheduling for Heterogeneous Computing, IEEE Transactions on Parallel and
 Distributed Systems, Vol. 13, No. 3, pp. 260 - 274, 2002.
 
 [2] Ouyang Liduo, HEFT Implementation Original Source Code, https://github.com/oyld/heft  (we have modified this code in ours.)
+
+# Acknowledgement
+This material is based upon work supported by Defense Advanced Research Projects Agency (DARPA) under Contract No. HR001117C0053. Any views, opinions, and/or findings expressed are those of the author(s) and should not be interpreted as representing the official views or policies of the Department of Defense or the U.S. Government.
             
