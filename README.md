@@ -3,15 +3,16 @@
 # Introduction
 
 CIRCE is a runtime scheduling software tool for dispersed computing, which can deploys pipelined  
-computations detoolscribed in the form a directed acyclic graph (DAG) on multiple geographically
+computations described in the form a directed acyclic graph (DAG) on multiple geographically
 dispersed computers (nodes or droplets).
 
 The tool is run on a host node (also called scheduler node). The tool needs information about
 which nodes are available for computation, the description of the DAG along with code for 
 the corresponding tasks, and based on measurements of compute costs for each task on each 
 node and the communication cost of transferring data from one node to another, first uses a 
-DAG-based scheduling algorithm (at present, we include a modified version of an implementation [2] of HEFT [1] with the tool) to determine
-at which node to place each task from the DAG. It then deploys the corresponding tasks to each 
+DAG-based scheduling algorithm (at present, we include a modified version of an implementation [2] 
+of the well-known HEFT algorithm [1] with the tool) to determine
+at which node to place each task from the DAG. CIRCE then deploys the corresponding tasks to each 
 node and executes each task, using input and output queues for each task for pipelined execution
 and taking care of the data transfer between different nodes.
 
@@ -134,7 +135,7 @@ The system consists of several tools and requires the following steps:
       For scheduler node: copy mongo control/ folder to scheduler node using scp under circe/central_network profiler if a node’s IP address changes, just update the mongo control/ip path file inside apac scheduler/central network profiler/mongo control/ folder, type: python2 install package.py
             python2 jobs.py (if you want to run in backend, type: python2 jobs.py and then close the                terminal)
             
-- HEFT
+- HEFT (adapted/modified from [2])
   - HEFT input file construction: HEFT implementation takes a file of .tgff format, which describes the DAG and its various costs, as input. The first step is to construct this file.
     - INPUT: dag.txt, profiler_nodeNUM.txt
     - OUTPUT: input.tgff
@@ -204,6 +205,7 @@ folder is the following:
     - cpop.py
     - read config.py
     - input.tgff (output of write input file.py)
+    - readme.md
 - central network profiler/
     - folder central_input: link list.txt, nodes.txt, central.txt
     - central copy nodes
