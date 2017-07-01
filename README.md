@@ -1,7 +1,20 @@
 # CIRCE - CentralIzed Runtime sChedulEr
 
 # Introduction
-The experiment is run on a host node (also called scheduler).
+
+CIRCE is a runtime scheduling software tool for dispersed computing, which can deploys pipelined  
+computations detoolscribed in the form a directed acyclic graph (DAG) on multiple geographically
+dispersed computers (nodes or droplets).
+
+The tool is run on a host node (also called scheduler node). The tool needs information about
+which nodes are available for computation, the description of the DAG along with code for 
+the corresponding tasks, and based on measurements of compute costs for each task on each 
+node and the communication cost of transferring data from one node to another, first uses a 
+DAG-based scheduling algorithm (at present, we include HEFT [1] with the tool) to determine
+at which node to place each task from the DAG. It then deploys the corresponding tasks to each 
+node and executes each task, using input and output queues for each task for pipelined execution
+and taking care of the data transfer between different nodes.
+
 List of nodes (droplets) for the experiment, including the scheduler node, is
 kept in file nodes.txt (the user needs to fill the file with the appropriate IP addresses,
 usernames and passwords of their servers):
@@ -209,7 +222,11 @@ folder is the following:
           - install package.py
           - jobs.py
           - ip path
-        
-            
-            
+
+Note that while we currently use an implementation of HEFT for use with CIRCE, other schedulers may be used as well. 
+
+# References
+[1] H. Topcuoglu, S. Hariri, M.Y. Wu, Performance-Effective and Low-Complexity Task
+Scheduling for Heterogeneous Computing, IEEE Transactions on Parallel and
+Distributed Systems, Vol. 13, No. 3, pp. 260 - 274, 2002.
             
