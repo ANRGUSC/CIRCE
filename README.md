@@ -231,5 +231,6 @@ Note that while we currently use an implementation of HEFT for use with CIRCE, o
 [1] H. Topcuoglu, S. Hariri, M.Y. Wu, Performance-Effective and Low-Complexity Task
 Scheduling for Heterogeneous Computing, IEEE Transactions on Parallel and
 Distributed Systems, Vol. 13, No. 3, pp. 260 - 274, 2002.
+
 [2] Ouyang Liduo, HEFT Implementation Original Source Code, https://github.com/oyld/heft  (we have modified this code in ours.)
             
