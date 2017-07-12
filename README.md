@@ -2,8 +2,8 @@
 
 # Introduction
 
-CIRCE is a runtime scheduling software tool for dispersed computing, which can deploys pipelined
-computations described in the form a directed acyclic graph (DAG) on multiple geographically
+CIRCE is a runtime scheduling software tool for dispersed computing, which can deploy pipelined
+computations described in the form of a directed acyclic graph (DAG) on multiple geographically
 dispersed computers (compute nodes).
 
 The tool is run on a host node (also called scheduler node). The tool needs information about
