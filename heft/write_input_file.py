@@ -9,7 +9,7 @@ import glob
 from create_input import init
 
 
-configuration_path='dag.txt'
+configuration_path='../dag.txt'
 dag_info = readconfig.read_config(configuration_path)
 
 tgff_file='input_0.tgff'
@@ -25,7 +25,7 @@ task_list = dag_info[1].keys()
 task_map = ['t0_%d'%(i) for i in range(0,len(task_list))]
 task_dict = dict(zip(task_list, task_map))
 
-num_nodes = len(glob.glob1(os.getcwd(),"profiler_node*"))
+num_nodes = len(glob.glob1(os.path.pardir,"profiler_node*"))
 
 computation_matrix =[]
 for i in range(0, len(task_list)):
@@ -40,8 +40,8 @@ for j in range(1, num_nodes+1):
         i=0
         for line in inf:
             parts = line.split() 
-            #get computation time in nsec
-            computation_matrix[i].append(int(float(parts[1])*1000000))
+            #get computation cost (from comp time in sec)
+            computation_matrix[i].append(int(float(parts[1])*10000))
             task_size[parts[0]]=parts[2]
             i=i+1
    
