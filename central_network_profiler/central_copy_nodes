@@ -1,0 +1,51 @@
+#!/bin/bash
+
+: '
+    ** Copyright (c) 2017, Autonomous Networks Research Group. All rights reserved.
+    **     contributor: Quynh Nguyen, Bhaskar Krishnamachari
+    **     Read license file in main directory for more details
+'
+
+n=0
+for info in ` awk -F ',' '{if (NR!=1) {print $2 " " $4}}' central_input/nodes.txt `; do
+
+    if ! ((n%2)); then
+        echo '------- Account'
+        echo $n
+        account=$info
+        echo $account
+    else
+        echo '------- Password'
+        echo $n
+        password=$info
+        remote_folder='online_profiler'
+        droplet_folder='network_script'
+        echo $password
+        sshpass -p $password ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q $account 'mkdir -p online_profiler'
+        sshpass -p $password ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q $account 'mkdir -p online_profiler/received_test'
+        sshpass -p $password scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q  central_input/central.txt $account:~/$remote_folder
+        sshpass -p $password scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q -r $droplet_folder $account:~/$remote_folder
+        sshpass -p $password scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q scheduling/$account/scheduling.txt $account:~/$remote_folder/
+    fi
+    let "n=n+1"
+done
+
+sleep 3m
+
+echo '**************************'
+n=0
+for info in ` awk -F ',' '{if (NR!=1) {print $2 " " $4}}' central_input/nodes.txt `; do
+    if ! ((n%2)); then
+        echo '------- Account'
+        echo $n
+        account=$info
+        echo $account
+    else
+        echo '------- Password'
+        echo $n
+        password=$info
+        sshpass -p $password ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q $account 'cd online_profiler/network_script && screen -d -m python3 automate_droplet.py'
+    fi
+    let "n=n+1"
+done
+

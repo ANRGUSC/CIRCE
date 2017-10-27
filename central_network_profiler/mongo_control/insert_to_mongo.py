@@ -1,0 +1,25 @@
+from pymongo import MongoClient
+import sys
+import read_info
+
+def insert_data(res):
+
+    Client = MongoClient()
+
+    db = Client["droplets_info"]
+
+    coll = db["resource"]
+
+    for i in res:
+        info = eval(i)
+        j={info.keys()[0]:info.values()[0]}
+        coll.update(j,info,upsert=True)   # if not exist then insert, if exsit then update
+
+
+if __name__ == '__main__':
+    if  len(sys.argv)!=2:
+        print 'Usage:python insert_to_mongo.py ip_path'
+        sys.exit(2)
+    ip_path = sys.argv[1]
+    res=read_info.open_file()
+    insert_data(res)
