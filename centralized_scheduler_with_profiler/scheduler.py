@@ -59,11 +59,11 @@ class Handler(FileSystemEventHandler):
                 line = 'created_input,%s,%s\n' %(new_file_name,created_time)
                 f.write(line)
 
-            #first task info
+            #first task info to be added
             first_task='local_pro'
-            IPaddr ='162.243.19.184'
-            user= 'apac'
-            password='apac20!7'
+            IPaddr ='IP'
+            user= 'user'
+            password='password'
 
             ssh=paramiko.SSHClient()
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
