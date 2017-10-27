@@ -1,0 +1,24 @@
+import os
+import sys
+import time
+
+def task(onefile, pathin, pathout):
+
+    time.sleep(30)
+
+    filelist=[]
+    filelist.append(onefile)
+
+    num=filelist[0].partition('s')[0]
+
+    with open(os.path.join(pathout, num+'merged_file1.ipsum'),'w') as outfile:
+        for filename in filelist:
+            with open(os.path.join(pathin, filename), 'r') as infile:
+                for line in infile:
+                    outfile.write(line)
+
+
+if __name__ == '__main__':
+
+    filelist = ['1split_1']
+    task(filelist, '/home/apac/security_app', '/home/apac/security_app')
