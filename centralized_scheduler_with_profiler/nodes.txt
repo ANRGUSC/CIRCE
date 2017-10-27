@@ -1,4 +1,0 @@
-scheduler IP username pw
-node1 IP1 username1 pw1
-node2 IP2 username2 pw2
-node3 IP3 username3 pw3
