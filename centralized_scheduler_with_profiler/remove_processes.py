@@ -20,11 +20,10 @@ def connect(IPaddr, user, passwrd):
     ssh.exec_command("rm -rf centralized_scheduler/")
     ssh.close()
 
-
-IP=['162.243.19.184','107.170.77.194','165.227.141.81','104.131.133.156','128.199.253.181','139.59.58.153','178.62.94.150',
-'37.139.9.234','165.227.15.16','178.62.214.132','139.59.24.161','46.101.29.130','95.85.44.221','138.68.43.235']
-users = 'apac'
-passwords='apac20!7'
+#update list of IP addresses used, user name and password
+IP=['IP','IP','IP']
+users = 'user'
+passwords='password'
 for i in range(0, len(IP)):
         print(IP[i])
         connect(IP[i], users, passwords)
