@@ -1,3 +1,12 @@
+"""
+ * Copyright (c) 2017, Autonomous Networks Research Group. All rights reserved.
+ *     contributors: 
+ *      Aleksandra Knezevic
+ *      Bhaskar Krishnamachari
+ *     Read license file in main directory for more details  
+"""
+
+
 import multiprocessing
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
