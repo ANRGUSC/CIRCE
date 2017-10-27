@@ -1,0 +1,15 @@
+14
+local_pro aggregate0 aggregate1 aggregate2
+aggregate0 simple_detector0 astute_detector0
+aggregate1 simple_detector1 astute_detector1
+aggregate2 simple_detector2 astute_detector2
+simple_detector0 fusion_center0
+simple_detector1 fusion_center1
+simple_detector2 fusion_center2
+astute_detector0 fusion_center0
+astute_detector1 fusion_center1
+astute_detector2 fusion_center2
+fusion_center0 global_fusion
+fusion_center1 global_fusion
+fusion_center2 global_fusion
+global_fusion scheduler

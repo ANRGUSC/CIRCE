@@ -1,0 +1,29 @@
+14
+local_pro 1 false aggregate0 aggregate1 aggregate2 
+aggregate0 1 true simple_detector0 astute_detector0 
+aggregate1 1 true simple_detector1 astute_detector1 
+aggregate2 1 true simple_detector2 astute_detector2 
+simple_detector0 1 true fusion_center0 
+simple_detector1 1 true fusion_center1
+simple_detector2 1 true fusion_center2
+astute_detector0 1 true fusion_center0
+astute_detector1 1 true fusion_center1
+astute_detector2 1 true fusion_center2
+fusion_center0 2 true global_fusion
+fusion_center1 2 true global_fusion
+fusion_center2 2 true global_fusion 
+global_fusion 3 true scheduler
+local_pro node10
+aggregate0 node2
+aggregate1 node5
+aggregate2 node1
+simple_detector0 node4
+simple_detector1 node2
+simple_detector2 node14
+astute_detector0 node6
+astute_detector1 node5
+astute_detector2 node3
+fusion_center0 node9
+fusion_center1 node4
+fusion_center2 node8
+global_fusion node7
