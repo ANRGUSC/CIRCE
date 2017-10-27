@@ -1,3 +1,9 @@
+"""
+ ** Copyright (c) 2017, Autonomous Networks Research Group. All rights reserved.
+ **     contributor: Quynh Nguyen, Aleksandra Knezevic, Bhaskar Krishnamachari
+ **     Read license file in main directory for more details
+"""
+
 import os
 import readconfig
 import pymongo
