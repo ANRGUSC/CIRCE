@@ -28,7 +28,7 @@ usernames and passwords of their servers):
 | node2 | IP| username| pw |
 | node3  | IP |username |pw |
 
-DAG description of DAND (as adjacency list) is kept in two files dag.txt (used by HEFT):
+DAG description of DAND (as adjacency list, where the first item is a parent task and subsequent items are child tasks) is kept in two files dag.txt (used by HEFT):
 
 | local_pro aggregate0 aggregate1 aggregate2 |
 | ------ |
@@ -49,6 +49,7 @@ DAG description of DAND (as adjacency list) is kept in two files dag.txt (used b
 and configuration.txt (config_security.txt in this example), that is of the form:
 
 | 14 |
+|-----|
 | local_pro 1 false aggregate0 aggregate1 aggregate2 |
 | aggregate0 1 true simple_detector0 astute_detector0 |
 | aggregate1 1 true simple_detector1 astute_detector1 |
@@ -64,13 +65,15 @@ and configuration.txt (config_security.txt in this example), that is of the form
 | fusion_center2 2 true global_fusion |
 | global_fusion 3 true scheduler |
 
-First line is an integer which gives the number of lines the DAG is taking. DAG is represented in the form of adjacency list as before (parent_task child_task1 child_task2 child task3 ...) with two additional parameters:
+The first line is an integer, which gives the number of lines the DAG is taking in the file. DAG is represented in the form of adjacency list as before (parent_task child_task1 child_task2 child task3 ...) but with two additional parameters:
 
 parent_task NUM_INPUTS FLAG child_task1 child_task2 child task3 ...
 
 NUM_INPUTS is an integer. It represents the number of input files the task needs in order to start processing (some tasks could require more than input).
 
 FLAG is ‘true’ or ‘false’. Based on its value, monitor.py will either send a single output of the task to all its children (when true), or it will wait the output files and start putting them into queue (when false). Once the queue size is equal to the number of children, it will send one output to one child (first output to first listed child, etc.).
+
+HEFT will append its output to this file, which is the input to centralized run-time scheduler.
 
 
 # User Guide
