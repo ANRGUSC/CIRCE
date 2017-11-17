@@ -6,21 +6,20 @@ CIRCE is a runtime scheduling software tool for dispersed computing, which can d
 computations described in the form of a directed acyclic graph (DAG) on multiple geographically
 dispersed computers (compute nodes).
 
-The tool is run on a host node (also called scheduler node). The tool needs information about
-which nodes are available for computation, the description of the DAG along with code for
-the corresponding tasks, and based on measurements of compute costs for each task on each
-node and the communication cost of transferring data from one node to another, first uses a
-DAG-based scheduling algorithm (at present, we include a modified version of an implementation [2]
+The tool is run on a host node (also called scheduler node). It needs the information about 
+compute nodes are available (such as IP address, username and password), the description of the 
+DAG along with code for the corresponding tasks. Based on measurements of computation costs for each task on each
+node and the communication cost of transferring output data from one node to another, it first uses a
+DAG-based static scheduling algorithm (at present, we include a modified version of an implementation [2]
 of the well-known HEFT algorithm [1] with the tool) to determine
-at which node to place each task from the DAG. CIRCE then deploys the corresponding tasks to each
-node and executes each task, using input and output queues for each task for pipelined execution
-and taking care of the data transfer between different nodes.
+at which node to place each task from the DAG. CIRCE then deploys the each tasks on the corresponding node, 
+using input and output queues for pipelined execution and taking care of the data transfer between different nodes.
 
 We use here Distributed Network Anomaly Detection application (DNAD) : https://github.com/ANRGUSC/DNAD
 
 List of nodes for the experiment, including the scheduler node, is
 kept in file nodes.txt (the user needs to fill the file with the appropriate IP addresses,
-usernames and passwords of their servers):
+usernames and passwords of their compute nodes):
 
 | scheduler | IP |username | pw |
 | ------ |----|--|-- |
