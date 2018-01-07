@@ -203,6 +203,17 @@ The system consists of several tools and requires the following steps:
     ```
     wait several seconds and move input1.txt to apac scheduler/centralized_scheduler/input/
     folder (repeat the same for other input files).
+  - Stopping the centralized run-time scheduler.  Run:
+    ```
+    $ python3 removeprocesses.py
+    ```
+    This script will shh into every node and kill running processes, and kill the process on the master node.
+    
+  - If network conditions change, one might want to restart the whole application. This can be done by running:
+    ```
+    $ python3 remove_and_restart.py
+    ```
+    The first part of the script stops the system as described above. It then runs HEFT and restarts the centralized run-time scheduler with the new task-node mapping.
   - Run-time task profiler
 
 
@@ -234,6 +245,7 @@ folder is the following:
     - monitor.py
     - securityapp (this folder contains application task files, in this case localpro.py, aggregate0.py,...)
     - removeprocesses.py
+    - remove_and_restart.py
     - readconfig.py
 - heft/
     - write_input_file.py
